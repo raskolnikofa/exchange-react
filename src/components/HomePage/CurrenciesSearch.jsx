@@ -6,6 +6,7 @@ export const CurrenciesSearch = () => {
         <Grid
             container
             spacing={2}
+            pb={1}
             style={{ color: theme.palette.secondary.contrastText, backgroundColor: theme.palette.secondary.main }}
         >
             <Grid
@@ -15,7 +16,6 @@ export const CurrenciesSearch = () => {
             >
                 <Typography
                     variant="h6"
-                    mr={4}
                 >
                     Search
                 </Typography>
@@ -24,6 +24,7 @@ export const CurrenciesSearch = () => {
                 item
                 xs={8}
                 sm={3}
+                pr={1}
             >
                 <TextField
                     sx={{ width: '100%', height: '80%' }}

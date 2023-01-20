@@ -11,7 +11,6 @@ export const Header = () => {
                 <Toolbar>
                     <Typography
                         variant="h4"
-                        component="span"
                         mt={4}
                         mb={4}
                     >

@@ -4,6 +4,7 @@ export const CurrenciesList = () => {
     return (
         <Grid
             container
+            pt={2}
             spacing={2}
         >
             <Grid
