@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store/configureStore';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import './index.css';
 import { ThemeProvider } from '@mui/material';
@@ -10,11 +13,25 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            refetchOnmount: false,
+            refetchOnReconnect: false,
+        },
+    },
+});
+
 root.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
             <BrowserRouter>
-                <App />
+                <QueryClientProvider client={queryClient}>
+                    <Provider store={store}>
+                        <App />
+                    </Provider>
+                </QueryClientProvider>
             </BrowserRouter>
         </ThemeProvider>
     </React.StrictMode>

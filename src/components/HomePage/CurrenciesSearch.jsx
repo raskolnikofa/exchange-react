@@ -1,7 +1,20 @@
 import { Grid, Typography, TextField } from '@mui/material';
 import theme from '../../plugins/mui';
+import { currencyActions } from '../../store/configureStore';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 export const CurrenciesSearch = () => {
+    const dispatch = useDispatch();
+    const [searchValue, setSearchValue] = useState("");
+
+    const changeSearchFilter = (e) => {
+        setSearchValue(e.target.value);
+    }
+
+    useEffect(() => {
+        dispatch(currencyActions.setFilter(searchValue));
+    }, [searchValue, dispatch]);
     return (
         <Grid
             container
@@ -27,12 +40,14 @@ export const CurrenciesSearch = () => {
                 pr={1}
             >
                 <TextField
+                    value={ searchValue }
                     sx={{ width: '100%', height: '80%' }}
                     variant="standard"
                     style={{
                         color: theme.palette.secondary.main,
                         backgroundColor: theme.palette.secondary.contrastText,
                     }}
+                    onChange={ changeSearchFilter }
                 />
             </Grid>
         </Grid>
