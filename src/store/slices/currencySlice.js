@@ -1,40 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
-const axios = require('axios');
-const API_URL = 'https://run.mocky.io/v3/c88db14a-3128-4fbd-af74-1371c5bb0343';
+import axios from 'axios';
+import { CURRENCIES_API } from '../../helpers/constants';
 
 const initialState = {
     loading: false,
+    error: false,
     allCurrencies: [],
-    filter: '',
-    filteredCurrencies: [],
+    filter: ''
 };
 
 const currencySlice = createSlice({
     name: 'currency',
     initialState,
     reducers: {
-        setLoading(state, value) {
-            state.loading = value;
+        setLoading(state, action) {
+            state.loading = action.payload;
+        },
+        setError(state, action) {
+            state.error = action.payload;
         },
         getAllCurrencies: (state, action) => {
-            state.allCurrencies = [action.payload];
+            state.allCurrencies = action.payload;
         },
         setFilter(state, value) {
-            state.filter = value;
+            state.filter = value.payload;
         },
-        filterCurrencies() {},
     },
 });
 
 export const getAllCurrenciesAsync = () => async dispatch => {
+    dispatch(setLoading(true));
     try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(CURRENCIES_API).finally(dispatch(setLoading(false)));
         dispatch(getAllCurrencies(response.data));
     } catch (err) {
+        dispatch(setLoading(false));
+        dispatch(setError(true));
         throw new Error(err);
     }
 };
 
-export const { getAllCurrencies } = currencySlice.actions;
-export const showFilteredCurrencies = state => state.currency.filteredCurrencies;
+
+export const { setLoading, setError, getAllCurrencies } = currencySlice.actions;
 export default currencySlice;

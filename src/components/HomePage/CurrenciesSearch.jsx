@@ -6,15 +6,16 @@ import { useDispatch } from 'react-redux';
 
 export const CurrenciesSearch = () => {
     const dispatch = useDispatch();
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState('');
 
-    const changeSearchFilter = (e) => {
+    const changeSearchFilter = e => {
         setSearchValue(e.target.value);
-    }
+    };
 
     useEffect(() => {
         dispatch(currencyActions.setFilter(searchValue));
     }, [searchValue, dispatch]);
+
     return (
         <Grid
             container
@@ -27,11 +28,7 @@ export const CurrenciesSearch = () => {
                 xs={4}
                 sm={1}
             >
-                <Typography
-                    variant="h6"
-                >
-                    Search
-                </Typography>
+                <Typography variant="h6">Search</Typography>
             </Grid>
             <Grid
                 item
@@ -40,14 +37,14 @@ export const CurrenciesSearch = () => {
                 pr={1}
             >
                 <TextField
-                    value={ searchValue }
+                    value={searchValue}
                     sx={{ width: '100%', height: '80%' }}
                     variant="standard"
                     style={{
                         color: theme.palette.secondary.main,
                         backgroundColor: theme.palette.secondary.contrastText,
                     }}
-                    onChange={ changeSearchFilter }
+                    onChange={changeSearchFilter}
                 />
             </Grid>
         </Grid>

@@ -1,45 +1,33 @@
 import { Grid } from '@mui/material';
-import fetchCurrencies from '../../helpers/fetchCurrencies';
-import { useQuery } from 'react-query';
-
 import { Loader } from '../Loader';
 import { Error } from '../Error';
 
-import { removeUnnecessarySymbols } from '../../helpers/dataFormatter';
+import { getAllCurrenciesAsync } from '../../store/slices/currencySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { formatOriginalCurrencies } from '../../helpers/dataFormatter';
+import { CURRENCIES_OBJ } from '../../helpers/constants';
 
 export const CurrenciesList = () => {
-    const { data, error, isError, isLoading } = useQuery('currencies', fetchCurrencies);
-    if (isLoading) {
-        return <Loader />;
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllCurrenciesAsync());
+    }, [dispatch]);
+
+    const { loading, error, allCurrencies, filter } = useSelector(state => state.currency);
+
+    if (loading) return <Loader />;
+    if (error) return <Error />;
+
+    let filteredCurrencies = [];
+    if (CURRENCIES_OBJ in allCurrencies) {
+        const formatted = formatOriginalCurrencies(allCurrencies);
+        filteredCurrencies = formatted.filter(entry => {
+            return entry.currency && entry.currency.includes(filter.toUpperCase());
+        });
     }
-    if (isError) {
-        return <Error error={error.message} />;
-    }
 
-    const currencies = entries => {
-        if ('fx' in entries) {
-            return entries.fx.map(entry => {
-                // check if proper currency name exists and flags provided
-                if (!incorrectCurrency(entry.currency) && flagProvided(entry)) {
-                    let flagName = entry.currency.slice(0, -1).toLowerCase();
-                    return { ...entry, flagExists: true, flagName };
-                }
-                return { ...entry, flagExists: false };
-            });
-        }
-    };
-
-    const flagProvided = entry => {
-        return entry.flags && entry.flags[0] === 'provided';
-    };
-
-    const incorrectCurrency = currency => {
-        return removeUnnecessarySymbols(currency).length < 3;
-    };
-
-    const formattedCurrencies = currencies(data);
-
-    return formattedCurrencies.map((currency, id) => {
+    return filteredCurrencies.map((currency, id) => {
         return (
             <Grid
                 key={id}

@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
 
-export const Error = ({ error }) => {
+export const Error = () => {
     return (
         <Card>
             <CardContent>
@@ -9,7 +9,7 @@ export const Error = ({ error }) => {
                     mt={4}
                     mb={4}
                 >
-                    {error}
+                    Error occurred.
                 </Typography>
             </CardContent>
         </Card>
