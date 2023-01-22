@@ -1,11 +1,11 @@
 import { CurrenciesSearch } from '../components/HomePage/CurrenciesSearch';
-import { CurrenciesList } from '../components/HomePage/CurrenciesList';
+import { CurrenciesSearchResult } from '../components/HomePage/CurrenciesSearchResult';
 
 export const HomePage = () => {
     return (
         <div>
             <CurrenciesSearch />
-            <CurrenciesList />
+            <CurrenciesSearchResult />
         </div>
     );
 };
