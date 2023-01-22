@@ -7,6 +7,7 @@ export const Header = () => {
                 position="static"
                 color="primary"
                 id="header"
+                data-testid="header"
             >
                 <Toolbar>
                     <Typography
