@@ -6,6 +6,10 @@
     z-index: 999;
     padding-top: 10px;
 }
-.hiddenLabel label {
-    color: white;
+/* important flags to not spend too much time on appearance' configuration :( */
+.searchInput fieldset {
+    border: none !important;
+}
+.searchInput label {
+        color: transparent !important;
 }

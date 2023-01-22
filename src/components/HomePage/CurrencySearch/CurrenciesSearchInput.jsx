@@ -47,8 +47,8 @@ export const CurrenciesSearchInput = ({ searchValue, onChange }) => {
                 <TextField
                     value={searchValue}
                     sx={{ width: '100%', height: '80%' }}
-                    className={styles.hiddenLabel}
-                    variant="standard"
+                    className={styles.searchInput}
+                    variant="outlined"
                     label="Search"
                     style={{
                         color: theme.palette.secondary.main,
