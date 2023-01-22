@@ -4,16 +4,24 @@ import { CurrenciesList } from './CurrenciesList';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import { getAllCurrenciesAsync } from '../../store/slices/currencySlice';
 
 import { CURRENCIES_OBJ } from '../../helpers/constants';
 import { formatOriginalCurrencies } from '../../helpers/dataFormatter';
+import { currencyActions } from '../../store/configureStore';
 
 export const CurrenciesSearchResult = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     useEffect(() => {
         dispatch(getAllCurrenciesAsync());
     }, [dispatch]);
+
+    useEffect(() => {
+        const { hash } = location;
+        dispatch(currencyActions.setFilter(hash.slice(1)));
+    }, [dispatch, location]);
 
     const { loading, error, allCurrencies, filter } = useSelector(state => state.currency);
 

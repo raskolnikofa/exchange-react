@@ -1,23 +1,20 @@
-import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { currencyActions } from '../../store/configureStore';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { CurrenciesSearchInput } from './CurrenciesSearchInput';
 
 export const CurrenciesSearch = () => {
-    const dispatch = useDispatch();
-    const [searchValue, setSearchValue] = useState('');
+    const navigate = useNavigate();
+    const filter = useSelector(state => state.currency.filter);
 
     const changeSearchFilter = e => {
-        setSearchValue(e.target.value);
+        const searchValue = e.target.value;
+        const hash = searchValue === '' ? '' : `#${searchValue}`;
+        navigate(hash);
     };
-
-    useEffect(() => {
-        dispatch(currencyActions.setFilter(searchValue));
-    }, [searchValue, dispatch]);
 
     return (
         <CurrenciesSearchInput
-            searchValue={searchValue}
+            searchValue={filter}
             onChange={changeSearchFilter}
         />
     );
