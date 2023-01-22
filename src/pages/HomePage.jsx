@@ -1,5 +1,5 @@
-import { CurrenciesSearch } from '../components/HomePage/CurrenciesSearch';
-import { CurrenciesSearchResult } from '../components/HomePage/CurrenciesSearchResult';
+import { CurrenciesSearch } from '../components/HomePage/CurrencySearch/CurrenciesSearch';
+import { CurrenciesSearchResult } from '../components/HomePage/CurrencySearchResult/CurrenciesSearchResult';
 
 export const HomePage = () => {
     return (

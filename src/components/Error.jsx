@@ -6,6 +6,7 @@ export const Error = () => {
             <CardContent>
                 <Typography
                     variant="h1"
+                    component="h2"
                     mt={4}
                     mb={4}
                 >
