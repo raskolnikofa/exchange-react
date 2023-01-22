@@ -1,12 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 import { CURRENCIES_API } from '../../helpers/constants';
 
 const initialState = {
     loading: false,
     error: false,
-    allCurrencies: [],
-    filter: ''
+    filter: '',
+    allCurrencies: []
 };
 
 const currencySlice = createSlice({
@@ -39,7 +39,6 @@ export const getAllCurrenciesAsync = () => async dispatch => {
         throw new Error(err);
     }
 };
-
 
 export const { setLoading, setError, getAllCurrencies } = currencySlice.actions;
 export default currencySlice;

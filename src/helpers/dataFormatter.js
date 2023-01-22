@@ -9,7 +9,7 @@ const flagProvided = entry => {
     return entry.flags && entry.flags[0] === 'provided';
 };
 
-// check if currency name in aaa format
+// check if currency name in AAA format
 const incorrectCurrencyName = currency => {
     return removeUnnecessarySymbols(currency).length < 3;
 };
@@ -22,7 +22,7 @@ const invalidCurrency = currency => {
 
 export const formatOriginalCurrencies = entries => {
     if (CURRENCIES_OBJ in entries) {
-        return entries.fx.map(entry => {
+        return entries[CURRENCIES_OBJ].map(entry => {
             // check if currency is valid for display
             if (!invalidCurrency(entry)) {
                 let flagName = entry.currency.slice(0, -1).toLowerCase();
