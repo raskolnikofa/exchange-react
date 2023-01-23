@@ -1,18 +1,28 @@
-import { renderWithProviders } from '../../../../utils/test-utils';
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { CurrenciesList } from '../CurrenciesList';
 
-// without axios !!!
+// basic currency data object to check for standard behaviour
+const currency = {
+    currency: 'USD',
+    flagExists: true,
+    flagName: '',
+    nameI18N: 'US',
+    exchangeRate: {
+        buy: 1,
+        sell: 1,
+    },
+};
+
 describe('Currencies list', () => {
     it('should have image src', () => {
-        renderWithProviders(<CurrenciesList />);
-        const img = screen.getByRole('img');
+        render(<CurrenciesList currency={currency} />);
+        const img = screen.getByRole('img', {});
         expect(img).toBeInTheDocument();
     });
 
     it('should have exchange rate', () => {
-        renderWithProviders(<CurrenciesList />);
-        const sell = screen.getByText(/sell: 1/i);
+        render(<CurrenciesList currency={currency} />);
+        const sell = screen.getByText(/sell: 1/i, {});
         expect(sell).toBeInTheDocument();
     });
 });
