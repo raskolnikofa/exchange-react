@@ -1,23 +1,27 @@
-import React from 'react'
-import { render } from '@testing-library/react'
-import { configureStore } from '@reduxjs/toolkit'
-import { Provider } from 'react-redux'
-// As a basic setup, import your same slice reducers
-import currencyReducer from '../store/slices/currencySlice';
+import React from 'react';
+import { render } from '@testing-library/react';
+import theme from '../plugins/mui';
+import store from '../store/configureStore';
 
-export function renderWithProviders(
-    ui,
-    {
-        preloadedState = {},
-        // Automatically create a store instance if no store was passed in
-        store = configureStore({ reducer: { currency: currencyReducer }, preloadedState }),
-        ...renderOptions
-    } = {}
-) {
+import { ThemeProvider } from '@mui/material';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import App from '../App';
+
+export function renderWithProviders(ui, { ...renderOptions } = {}) {
     function Wrapper({ children }) {
-        return <Provider store={store}>{children}</Provider>
+        return (
+            <ThemeProvider theme={theme}>
+                <BrowserRouter>
+                    <Provider store={store}>
+                        <App>{children}</App>
+                    </Provider>
+                </BrowserRouter>
+            </ThemeProvider>
+        );
     }
 
     // Return an object with the store and all of RTL's query functions
-    return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
+    return { ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
