@@ -18,7 +18,7 @@ export const CurrenciesList = ({ currency }) => {
                         alt={currency.currency}
                         width="105"
                         height="71"
-                        onError={({ currentTarget }) => (currentTarget.style.display = 'none')}
+                        onError={({ currentTarget }) => (currentTarget.src = '../404.png')}
                     />
                 )}
             </Grid>
