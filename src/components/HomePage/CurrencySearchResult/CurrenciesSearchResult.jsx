@@ -7,9 +7,10 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getAllCurrenciesAsync } from '../../../store/slices/currencySlice';
 
-import { CURRENCIES_OBJ } from '../../../helpers/constants';
+import { CURRENCIES_OBJ, CURRENCY_COUNTRY } from '../../../helpers/constants';
 import { formatOriginalCurrencies } from '../../../helpers/dataFormatter';
 import { currencyActions } from '../../../store/configureStore';
+import { CurrenciesNotFound } from './CurrenciesNotFound';
 
 export const CurrenciesSearchResult = () => {
     const dispatch = useDispatch();
@@ -32,9 +33,15 @@ export const CurrenciesSearchResult = () => {
     if (CURRENCIES_OBJ in allCurrencies) {
         const formatted = formatOriginalCurrencies(allCurrencies);
         filteredCurrencies = formatted.filter(entry => {
-            return entry.currency && entry.currency.includes(filter.toUpperCase());
+            return (
+                entry.currency &&
+                (entry.currency.includes(filter.toUpperCase()) ||
+                    entry[CURRENCY_COUNTRY].toUpperCase().includes(filter.toUpperCase()))
+            );
         });
     }
+
+    if (filteredCurrencies.length < 1) return <CurrenciesNotFound />;
 
     return filteredCurrencies.map((currency, id) => {
         return (

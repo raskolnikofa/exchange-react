@@ -31,8 +31,10 @@ const currencySlice = createSlice({
 export const getAllCurrenciesAsync = () => async dispatch => {
     dispatch(setLoading(true));
     try {
-        const response = await axios.get(CURRENCIES_API).finally(dispatch(setLoading(false)));
-        dispatch(getAllCurrencies(response.data));
+        await axios.get(CURRENCIES_API).then(response => {
+            dispatch(getAllCurrencies(response.data));
+            dispatch(setLoading(false));
+        });
     } catch (err) {
         dispatch(setLoading(false));
         dispatch(setError(true));
