@@ -7,6 +7,8 @@ export const CurrenciesList = ({ currency }) => {
             container
             pt={2}
             spacing={2}
+            align="center"
+            alignItems="center"
         >
             <Grid
                 item
@@ -26,13 +28,13 @@ export const CurrenciesList = ({ currency }) => {
                 item
                 xs={3}
             >
-                {currency[CURRENCY_COUNTRY]}
+                <Typography>{currency[CURRENCY_COUNTRY]}</Typography>
             </Grid>
             <Grid
                 item
                 xs={3}
             >
-                {currency.currency}
+                <Typography>{currency.currency}</Typography>
             </Grid>
             {!!currency.exchangeRate && (
                 <Grid
